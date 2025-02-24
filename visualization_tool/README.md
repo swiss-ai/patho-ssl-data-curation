@@ -6,4 +6,8 @@ Please make sure you have all slides and respective tiles available, either as a
 1. You can edit the code by running `marimo edit tile_visualizer_umap.py`. Run the app with `marimo run tile_visualizer_umap.py`. 
 2. Now you should be able to access the marimo app via [http://localhost:2718](http://localhost:2718/)
 
-https://github.com/user-attachments/assets/cd0958ad-3274-42e3-bab4-4b6270c09ecf
+
+
+https://github.com/user-attachments/assets/2c07ca1f-9cf8-4a6a-aa34-71ce04518d7d
+
+
