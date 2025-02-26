@@ -1,6 +1,6 @@
 # Metadata Based Sampling
 
-This folder contains scripts for metadata-based sampling and analysis of tissue data from the TCGA and GTEx datasets. Below is a description of each file, its purpose, and how to use it.
+This folder contains scripts for metadata-based sampling from the TCGA and GTEx datasets. Below is a description of each file, its purpose, and how to use it.
 
 #### Dependencies
 * pandas
