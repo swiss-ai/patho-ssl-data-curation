@@ -1,0 +1,1 @@
+Adipose,Adrenal Gland,Artery,Bladder,Brain,Breast,Cervix,Colon,Esophagus,Eye and Adnexa,Fallopian Tube,Heart,Kidney,Liver,Lung,Lymphatic System,Muscle,Nerve,Oral Cavity and Pharynx,Other,Ovary,Pancreas,Pituitary,Prostate,Skin,Skeletal System,Small Intestine,Spleen,Stomach,Testis,Thyroid,Uterus,Unknown,Vagina
