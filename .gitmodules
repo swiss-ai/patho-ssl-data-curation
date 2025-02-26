@@ -1,0 +1,3 @@
+[submodule "orig-ssl-data-curation"]
+	path = orig-ssl-data-curation
+	url = https://github.com/facebookresearch/ssl-data-curation
