@@ -7,7 +7,5 @@ Please make sure you have all slides and respective tiles available, either as a
 2. Now you should be able to access the marimo app via [http://localhost:2718](http://localhost:2718/)
 
 
-
-https://github.com/user-attachments/assets/2c07ca1f-9cf8-4a6a-aa34-71ce04518d7d
-
+https://github.com/user-attachments/assets/892a9f93-7619-4719-8e74-a5c51053a710
 
