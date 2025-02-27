@@ -5,6 +5,7 @@
 We provide code for:
 * Data Curation using the code from [https://github.com/facebookresearch/ssl-data-curation](https://github.com/facebookresearch/ssl-data-curation), with our added configuration files [orig-ssl-data-curation/configs](https://github.com/facebookresearch/ssl-data-curation/tree/63b3073db596d2fddf9eeb83112cbcedbda81419/configs). Please follow the instructions from the Meta repository for k-means clustering and sampling from the tree.
 * Metadata-based sampling in [metadata_based_sampling](metadata_based_sampling).
+* Batch stratification based on curated trees in [batch_stratification](batch_stratification).
 * Vision self-supervised training based on DINOv2 in [dinov2](dinov2).
 * Running our visualization tool in [visualization_tool](visualization_tool).
 
