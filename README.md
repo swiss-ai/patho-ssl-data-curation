@@ -4,8 +4,19 @@
 
 # Code
 We provide code for:
-* **Data Curation**: Using the code from [https://github.com/facebookresearch/ssl-data-curation](https://github.com/facebookresearch/ssl-data-curation), with our added configuration files [orig-ssl-data-curation/configs](https://github.com/facebookresearch/ssl-data-curation/tree/63b3073db596d2fddf9eeb83112cbcedbda81419/configs). We ran the clustering on 350M tiles embedded with the foundation model UNI. However, due to the large size of the full tile embeddings (~670GB), we will provide the embeddings file on acceptance. It is however possible to trace back the 350M tiles from TCGA and GTEx. We describe how to do this in [README.md]()
-  Please follow the instructions from the Meta repository for k-means clustering and sampling from the tree. 
+* **Data Curation**: Using the code from [https://github.com/facebookresearch/ssl-data-curation](https://github.com/facebookresearch/ssl-data-curation), with our added configuration files [orig-ssl-data-curation/configs](https://github.com/facebookresearch/ssl-data-curation/tree/63b3073db596d2fddf9eeb83112cbcedbda81419/configs). We ran the clustering on 350M tiles from [TCGA](https://portal.gdc.cancer.gov/) and [GTEx](https://www.gtexportal.org/home/histologyPage) whole slide images (WSIs) embedded with the foundation model [UNI](https://huggingface.co/MahmoodLab/UNI). However, due to the large size of the full tile embeddings (~670GB), we will provide the embeddings file on acceptance. With the embeddings file available, you can run the data curation by following the instructions from the Meta repository for k-means clustering and sampling from the tree.
+* **Clustering results**: We provide our clustering results as csvs files with the slide_id (WSI the tile originates from), (x,y)-coordinate of the tile at level 0 (highest pyramid level of the WSI) and cluster labels for each level (denoted as columns "level_1"..."level_4"). Slides can be downloaded from the [TCGA](https://portal.gdc.cancer.gov/) and [GTEx](https://www.gtexportal.org/home/histologyPage) websites, for tile extraction from the WSIs we recommend [openslide](https://openslide.org/api/python/).
+* Structure of `clustering_results/clustering_{t1,t2}.csv`:
+
+  	| slide\_id                                         | tile\_x | tile\_y | level\_1 | level\_2 | level\_3 | level\_4 |
+	| ------------------------------------------------- | ------- | ------- | -------- | -------- | -------- | -------- |
+	| TCGA-22-1017-01Z-00-DX1.9562FE79-A261-42D3-B39... | 32406   | 10621   | 1301309  | 17404    | 2        | 24       |
+	| TCGA-22-1017-01Z-00-DX1.9562FE79-A261-42D3-B39... | 32850   | 10621   | 3481104  | 17557    | 343      | 8        |
+	| TCGA-22-1017-01Z-00-DX1.9562FE79-A261-42D3-B39... | 30630   | 11064   | 2269415  | 34147    | 2        | 24       |
+	| TCGA-22-1017-01Z-00-DX1.9562FE79-A261-42D3-B39... | 31074   | 11064   | 3352403  | 3486     | 2        | 24       |
+	| TCGA-22-1017-01Z-00-DX1.9562FE79-A261-42D3-B39... | 31519   | 11064   | 3352388  | 11187    | 2        | 24       |
+
+  **slide\_id**: Unique identifier for the slide image, **tile\_x, tile\_y**: Coordinates of the tile within the slide at level 0, the highest pyramid level. The tiles are of size `224px X 224px`at 20x magnification (=`112um X 112um`), **level\_1 to level\_4**: Hierarchical cluster labels the tile is associated with.
 * **Metadata-based sampling**: [metadata_based_sampling](metadata_based_sampling).
 * **Batch stratification based on curated trees**: [batch_stratification](batch_stratification).
 * **Vision self-supervised training based on DINOv2**: [dinov2](dinov2).
@@ -50,5 +61,15 @@ We build our work on the following public repositories"
   author={Darcet, Timothée and Oquab, Maxime and Mairal, Julien and Bojanowski, Piotr},
   journal={arXiv:2309.16588},
   year={2023}
+}
+```
+- [UNI](https://huggingface.co/MahmoodLab/UNI):
+```
+@article{chen2024uni,
+  title={Towards a General-Purpose Foundation Model for Computational Pathology},
+  author={Chen, Richard J and Ding, Tong and Lu, Ming Y and Williamson, Drew FK and Jaume, Guillaume and Chen, Bowen and Zhang, Andrew and Shao, Daniel and Song, Andrew H and Shaban, Muhammad and others},
+  journal={Nature Medicine},
+  publisher={Nature Publishing Group},
+  year={2024}
 }
 ```
