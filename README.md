@@ -4,8 +4,8 @@
 
 # Code
 We provide code for:
-* **Data Curation**: Using the code from [https://github.com/facebookresearch/ssl-data-curation](https://github.com/facebookresearch/ssl-data-curation), with our added configuration files [orig-ssl-data-curation/configs](https://github.com/facebookresearch/ssl-data-curation/tree/63b3073db596d2fddf9eeb83112cbcedbda81419/configs). We ran the clustering on 350M tiles from [TCGA](https://portal.gdc.cancer.gov/) and [GTEx](https://www.gtexportal.org/home/histologyPage) whole slide images (WSIs) embedded with the foundation model [UNI](https://huggingface.co/MahmoodLab/UNI). However, due to the large size of the full tile embeddings (~670GB), we will provide the embeddings file on acceptance. With the embeddings file available, you can run the data curation by following the instructions from the Meta repository for k-means clustering and sampling from the tree.
-* **Clustering results**: We provide our clustering results as csvs files with the slide_id (WSI the tile originates from), (x,y)-coordinate of the tile at level 0 (highest pyramid level of the WSI) and cluster labels for each level (denoted as columns "level_1"..."level_4"). Slides can be downloaded from the [TCGA](https://portal.gdc.cancer.gov/) and [GTEx](https://www.gtexportal.org/home/histologyPage) websites, for tile extraction from the WSIs we recommend [openslide](https://openslide.org/api/python/).
+* **Data Curation**: Based on the code from [https://github.com/facebookresearch/ssl-data-curation](https://github.com/facebookresearch/ssl-data-curation), with our added configuration files [orig-ssl-data-curation/configs](https://github.com/facebookresearch/ssl-data-curation/tree/63b3073db596d2fddf9eeb83112cbcedbda81419/configs). We ran the clustering on 350M tiles from [TCGA](https://portal.gdc.cancer.gov/) and [GTEx](https://www.gtexportal.org/home/histologyPage) whole slide images (WSIs) embedded with the foundation model [UNI](https://huggingface.co/MahmoodLab/UNI). However, due to the large size of the full tile embeddings (~670GB), we will provide the embeddings file on acceptance. With the embeddings file available, you can run the data curation by following the instructions from the Meta repository for k-means clustering and sampling from the tree.
+* **Clustering results**: On acceptance we will additionally provide our clustering results as csvs files (>24GB size each) with the slide_id (WSI the tile originates from), (x,y)-coordinate of the tile at level 0 (highest pyramid level of the WSI) and cluster labels for each level (denoted as columns "level_1"..."level_4"). Then slides can be downloaded from the [TCGA](https://portal.gdc.cancer.gov/) and [GTEx](https://www.gtexportal.org/home/histologyPage) websites, for tile extraction from the WSIs we recommend [openslide](https://openslide.org/api/python/).
 * Structure of `clustering_results/clustering_{t1,t2}.csv`:
 
   	| slide\_id                                         | tile\_x | tile\_y | level\_1 | level\_2 | level\_3 | level\_4 |
@@ -24,7 +24,7 @@ We provide code for:
 
 
 # Citations
-We build our work on the following public repositories"
+We build our work on the following public repositories:
 
 -  [ssl-data-curation](https://github.com/facebookresearch/ssl-data-curation):
 ```

@@ -352,7 +352,8 @@ def parse_arguments():
     parser.add_argument(
         "--curation_mode",
         type=str,
-        default="higher_compress",
+        default="t1",
+        choices=["t1","t2"]
         help="Curation mode of the hierarchical scheme",
     )
     parser.add_argument(
