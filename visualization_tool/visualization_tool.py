@@ -1,7 +1,7 @@
 import marimo
 
 __generated_with = "0.10.5"
-app = marimo.App(layout_file="layouts/tile_representation_umap.grid.json")
+app = marimo.App(layout_file="layouts/visualization_tool.grid.json")
 
 
 @app.cell
@@ -12,13 +12,12 @@ def _():
     import pandas as pd
     import altair as alt
     import seaborn as sns
-    import h5py
     import random
     import os
     from concurrent.futures import ProcessPoolExecutor
     from functools import partial
     from distinct_colors import distinct_colors_100, distinct_colors_34
-    CORE_COLS = ["UMAP0", "UMAP1", "slide_id","tile_idx", "h5_path"]
+    CORE_COLS = ["UMAP0", "UMAP1", "slide_id","tile_x","tile_y"]
     random.seed(42)
     random.shuffle(distinct_colors_34)
     random.shuffle(distinct_colors_100)
@@ -28,7 +27,6 @@ def _():
         alt,
         distinct_colors_100,
         distinct_colors_34,
-        h5py,
         mo,
         np,
         os,
@@ -86,7 +84,7 @@ def _(__file__, os, pd, sample_size_slider):
 
 @app.cell
 def _(cols, data, mo):
-    _filtered_cols = [_c for _c in cols if _c not in ["UMAP0", "UMAP1","tile_idx", "slide_id","h5_path", "dataset"]]
+    _filtered_cols = [_c for _c in cols if _c not in ["UMAP0", "UMAP1","tile_x","tile_y", "slide_id", "dataset"]]
     _filtered_cols_display = []
     _filter_values = []
     for _c in _filtered_cols:
@@ -146,11 +144,8 @@ def _(array, data, filtered_cols, np):
             _mask &= _current_mask
         return data[_mask]
 
-    data_sub = filter_data(array.value)
-    _cols = list(data_sub.columns)
-    _cols.remove("h5_path")
-    data_tab = data_sub[_cols].copy()
-    return data_sub, data_tab, filter_data
+    data_tab = filter_data(array.value)
+    return data_tab, filter_data
 
 
 @app.cell
@@ -205,11 +200,12 @@ def _(chart, mo, random, show_images, table):
     if not len(table.value):
         _indices = random.sample(range(len(chart.value)), k=15)
         _slide_ids = list(chart.value['slide_id'].iloc[_indices])
-        _tile_idxs = list(chart.value['tile_idx'].iloc[_indices])
-        _selected_images = show_images(_slide_ids, _tile_idxs)
+        _tile_x_coords = list(chart.value['tile_x'].iloc[_indices])
+        _tile_y_coords = list(chart.value['tile_y'].iloc[_indices])
+        _selected_images = show_images(_slide_ids, _tile_x_coords, _tile_y_coords)
     else:
         _slide_ids = list(table.value['slide_id'])
-        _selected_images = show_images(_slide_ids, list(table.value['tile_idx']))
+        _selected_images = show_images(_slide_ids, list(table.value['tile_x']), list(table.value['tile_y']))
     #    **Data Selected:**
     mo.md(
         f"""
@@ -221,29 +217,27 @@ def _(chart, mo, random, show_images, table):
 
 
 @app.cell
-def _(ProcessPoolExecutor, data, h5py, np, os, plt):
-    def load_image(slide_id, tile_idx):
-        """Load an image from an .h5 file for a given path and tile index."""
-        h5_path = data.loc[data['slide_id']==slide_id, 'h5_path'].values[0].replace("hdf5", "h5")
-        if os.path.exists(h5_path):
-            with h5py.File(h5_path, 'r') as h5_file:
-                image_data = np.array(h5_file["tiles"][tile_idx])
-        else:
-            image_data = np.ones((100, 100, 3))  # Empty white image if file not found
+def _(ProcessPoolExecutor, np, plt):
+    def load_image(slide_id, tile_x_coords, tile_y_coords):
+        """Slide id and tile coordinates."""
+        ## Please add your code here loading the tiles from file 
+        ## This could be done using openslide to read the tiles from the WSI
+        image_data = np.zeros((100, 100, 3))  # Empty black image
         return image_data
 
-    def show_images(slide_ids, tile_idxs):
-        """Show images from .h5 files using given paths and indices in parallel."""
-        fig, axes = plt.subplots(3, 5, figsize=(6, 4)) #4, 6, figsize=(8.5, 5.5)
+    def show_images(slide_ids, tile_x_coords, tile_y_coords):
+        """Show images."""
+        fig, axes = plt.subplots(3, 5, figsize=(6, 4))
         axes = axes.flatten()
 
         with ProcessPoolExecutor() as executor:
-            images = list(executor.map(load_image, slide_ids, tile_idxs))
+            images = list(executor.map(load_image, slide_ids, tile_x_coords, tile_y_coords))
 
-        for i, (image_data, slide_id, tile_idx, ax) in enumerate(zip(images, slide_ids, tile_idxs, axes)):
+        for i, (image_data, slide_id, tile_x, tile_y, ax) in enumerate(zip(images, slide_ids, tile_x_coords, tile_y_coords, axes)):
             ax.imshow(image_data)
             ax.axis('off')
-            ax.set_title(f"{'-'.join(slide_id.split('-')[:3])}, {tile_idx}", fontsize=6)
+            #, (x,y)=({tile_x},{tile_y})
+            ax.set_title(f"{'-'.join(slide_id.split('-')[:3])}", fontsize=6)
 
         for j in range(i + 1, len(axes)):
             axes[j].axis('off')
