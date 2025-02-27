@@ -1,0 +1,31 @@
+dino:
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+ibot:
+  separate_head: true
+  head_n_prototypes: 65536
+  head_bottleneck_dim: 256
+train:
+  batch_size_per_gpu: 64
+  dataset_path: ImageNet22k
+  centering: sinkhorn_knopp
+  OFFICIAL_EPOCH_LENGTH: 170
+student:
+  arch: vit_large
+  patch_size: 14
+  drop_path_rate: 0.4
+  ffn_layer: mlp
+  block_chunks: 4
+teacher:
+  momentum_teacher: 0.994
+optim:
+  epochs: 1000
+  weight_decay_end: 0.2
+  base_lr: 2.0e-04  # learning rate for a batch size of 1024
+  warmup_epochs: 160
+  layerwise_decay: 1.0
+crops:
+  local_crops_size: 98
+schedule:
+  data_len: 350000
+  schedule_path: "" # input the path to the schedule file
