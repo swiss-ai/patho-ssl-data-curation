@@ -5,11 +5,14 @@
 We provide code for:
 * Data Curation using the code from [https://github.com/facebookresearch/ssl-data-curation](https://github.com/facebookresearch/ssl-data-curation), with our added configuration files [orig-ssl-data-curation/configs](https://github.com/facebookresearch/ssl-data-curation/tree/63b3073db596d2fddf9eeb83112cbcedbda81419/configs). Please follow the instructions from the Meta repository for k-means clustering and sampling from the tree.
 * Metadata-based sampling in [metadata_based_sampling](metadata_based_sampling).
+* Vision self-supervised training based on DINOv2 in [dinov2](dinov2).
 * Running our visualization tool in [visualization_tool](visualization_tool).
 
 
 # Citations
-We build our work on the public repositories [ssl-data-curation](https://github.com/facebookresearch/ssl-data-curation):
+We build our work on the following public repositories"
+
+-  [ssl-data-curation](https://github.com/facebookresearch/ssl-data-curation):
 ```
 @article{vo2024automatic,
   title={Automatic Data Curation for Self-Supervised Learning: A Clustering-Based Approach},
@@ -18,7 +21,7 @@ We build our work on the public repositories [ssl-data-curation](https://github.
   year={2024},
 }
 ```
-And [Histomorphological-Phenotype-Learning](https://github.com/AdalbertoCq/Histomorphological-Phenotype-Learning/tree/master):
+- [Histomorphological-Phenotype-Learning](https://github.com/AdalbertoCq/Histomorphological-Phenotype-Learning/tree/master):
 ```
 @article{QuirosCoudray2024,
 	author = {Claudio Quiros, Adalberto and Coudray, Nicolas and Yeaton, Anna and Yang, Xinyu and Liu, Bojing and Le, Hortense and Chiriboga, Luis and Karimkhan, Afreen and Narula, Navneet and Moore, David A. and Park, Christopher Y. and Pass, Harvey and Moreira, Andre L. and Le Quesne, John and Tsirigos, Aristotelis and Yuan, Ke},
@@ -28,5 +31,21 @@ And [Histomorphological-Phenotype-Learning](https://github.com/AdalbertoCq/Histo
 	title = {Mapping the landscape of histomorphological cancer phenotypes using self-supervised learning on unannotated pathology slides},
 	volume = {15},
 	year = {2024}}
+}
+```
+
+- [dinov2](https://github.com/facebookresearch/dinov2):
+```
+@misc{oquab2023dinov2,
+  title={DINOv2: Learning Robust Visual Features without Supervision},
+  author={Oquab, Maxime and Darcet, Timothée and Moutakanni, Theo and Vo, Huy V. and Szafraniec, Marc and Khalidov, Vasil and Fernandez, Pierre and Haziza, Daniel and Massa, Francisco and El-Nouby, Alaaeldin and Howes, Russell and Huang, Po-Yao and Xu, Hu and Sharma, Vasu and Li, Shang-Wen and Galuba, Wojciech and Rabbat, Mike and Assran, Mido and Ballas, Nicolas and Synnaeve, Gabriel and Misra, Ishan and Jegou, Herve and Mairal, Julien and Labatut, Patrick and Joulin, Armand and Bojanowski, Piotr},
+  journal={arXiv:2304.07193},
+  year={2023}
+}
+@misc{darcet2023vitneedreg,
+  title={Vision Transformers Need Registers},
+  author={Darcet, Timothée and Oquab, Maxime and Mairal, Julien and Bojanowski, Piotr},
+  journal={arXiv:2309.16588},
+  year={2023}
 }
 ```
