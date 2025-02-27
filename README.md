@@ -24,7 +24,7 @@ We provide code for:
 
 
 # Citations
-We build our work on the following public repositories"
+We build our work on the following public repositories:
 
 -  [ssl-data-curation](https://github.com/facebookresearch/ssl-data-curation):
 ```
