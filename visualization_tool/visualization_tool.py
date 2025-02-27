@@ -65,13 +65,6 @@ def _(mo):
 
 
 @app.cell
-def _(mo):
-    sample_size_slider = mo.ui.slider(start=50000, stop=2000000, step=50000, value=100000, label='Number of samples')
-    sample_size_slider
-    return (sample_size_slider,)
-
-
-@app.cell
 def _(__file__, os, pd, sample_size_slider):
     csv_path = 'umap_metadata.csv'
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -80,6 +73,13 @@ def _(__file__, os, pd, sample_size_slider):
     data.loc[data["dataset"]=="GTEx","source site"] = "GTEx"
     data = data.sample(sample_size_slider.value)
     return csv_path, data, dir_path
+
+
+@app.cell
+def _(mo):
+    sample_size_slider = mo.ui.slider(start=50000, stop=100000, step=10000, value=100000, label='Number of samples')
+    sample_size_slider
+    return (sample_size_slider,)
 
 
 @app.cell
