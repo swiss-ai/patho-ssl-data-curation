@@ -1,14 +1,15 @@
 # Revisiting Automatic Data Curation for Vision Foundation Models in Digital Pathology
+[HuggingFace Repo](https://huggingface.co/datasets/swiss-ai/patho-ssl-data-curation/tree/main)| [Paper](https://arxiv.org/abs/2503.18709)
 
 **Abstract** Vision foundation models (FMs) are accelerating the devel- opment of digital pathology algorithms and transforming biomedical research. These models learn, in a self-supervised manner, to represent histological features in highly heterogeneous tiles extracted from whole-slide images (WSIs) of real-world patient samples. The performance of these FMs is significantly influenced by the size, diversity, and balance of the pre-training data. However, data selection has been primarily guided by expert knowledge at the WSI level, focusing on factors such as disease classification and tissue types, while largely overlooking the granular details available at the tile level. In this paper, we investigate the potential of unsupervised automatic data curation at the tile-level, taking into account 350 million tiles. Specifically, we apply hierarchical clustering trees to pre-extracted tile embeddings, allowing us to sample balanced datasets uniformly across the embedding space of the pretrained FM. We further identify these datasets are subject to a trade-off between size and balance, potentially compromising the quality of representations learned by FMs, and propose tailored batch sampling strategies to mitigate this effect. We demonstrate the effectiveness of our method through improved performance on a diverse range of clinically relevant downstream tasks.
 
-# Code
-We provide code for:
-* **Data Curation**: Based on the code from [https://github.com/facebookresearch/ssl-data-curation](https://github.com/facebookresearch/ssl-data-curation), with our added configuration files [orig-ssl-data-curation/configs](https://github.com/facebookresearch/ssl-data-curation/tree/63b3073db596d2fddf9eeb83112cbcedbda81419/configs). We ran the clustering on 350M tiles from [TCGA](https://portal.gdc.cancer.gov/) and [GTEx](https://www.gtexportal.org/home/histologyPage) whole slide images (WSIs) embedded with the foundation model [UNI](https://huggingface.co/MahmoodLab/UNI). However, due to the large size of the full tile embeddings (~670GB), we are not able to provide the embeddings file. To reproduce the embeddings the following steps are required:
+# Code and Data
+We provide code and data for:
+* **Data Curation**: Based on the code from [https://github.com/facebookresearch/ssl-data-curation](https://github.com/facebookresearch/ssl-data-curation), with our added configuration files [orig-ssl-data-curation/configs](https://github.com/facebookresearch/ssl-data-curation/tree/63b3073db596d2fddf9eeb83112cbcedbda81419/configs). We ran the clustering on 350M tiles from [TCGA](https://portal.gdc.cancer.gov/) and [GTEx](https://www.gtexportal.org/home/histologyPage) whole slide images (WSIs) embedded with the foundation model [UNI](https://huggingface.co/MahmoodLab/UNI). However, due to the large size of the full tile embeddings (~670GB), we are not able to provide the embeddings file. We provide a pipeline for tile extraction and UNI feature embedding in [tile_extraction_embedding_generation.py](embedding_generation/tile_extraction_embedding_generation.py), which requires the downloaded TCGA and GTEx WSIs. It consists of the following steps:
 	* Tile extraction: The slides can be downloaded from the TCGA and GTEx websites. The slide ids and tiles (x,y) coordinates are specified in `clustering_results/clustering_{t1,t2}.csv`, tile coordinates are specified at the highest available pyramid level of the slide, the tiles are of size 224px X 224px at 20x magnification (=112um X 112um).
 	* Feature embedding: Generate the feature embedding using the UNI model on the extracted tiles.
-With the embeddings file available, you can run the data curation by following the instructions from the Meta repository for k-means clustering and sampling from the tree.
-* **Clustering results**: On acceptance we will additionally provide our clustering results as csvs files (>24GB size each) with the slide_id (WSI the tile originates from), (x,y)-coordinate of the tile at level 0 (highest pyramid level of the WSI) and cluster labels for each level (denoted as columns "level_1"..."level_4"). Then slides can be downloaded from the [TCGA](https://portal.gdc.cancer.gov/) and [GTEx](https://www.gtexportal.org/home/histologyPage) websites, for tile extraction from the WSIs we recommend [openslide](https://openslide.org/api/python/).
+Combine all the embeddings into a large numpy file. With it available, you can run the data curation by following the instructions from the Meta repository for k-means clustering and sampling from the tree.
+* **Clustering results**: Our clustering results are available as csvs files at our [HuggingFace Repo](https://huggingface.co/datasets/swiss-ai/patho-ssl-data-curation/tree/main). They contain the slide_id (WSI the tile originates from), (x,y)-coordinate of the tile at level 0 (highest pyramid level of the WSI) and cluster labels for each level (denoted as columns "level_1"..."level_4"). Then slides can be downloaded from the [TCGA](https://portal.gdc.cancer.gov/) and [GTEx](https://www.gtexportal.org/home/histologyPage) websites, for tile extraction from the WSIs we recommend [openslide](https://openslide.org/api/python/).
 * Structure of `clustering_results/clustering_{t1,t2}.csv`:
 
   	| slide\_id                                         | tile\_x | tile\_y | level\_1 | level\_2 | level\_3 | level\_4 |
@@ -25,6 +26,19 @@ With the embeddings file available, you can run the data curation by following t
 * **Vision self-supervised training based on DINOv2**: [dinov2](dinov2).
 * **Visualization Tool**: [visualization_tool](visualization_tool).
 
+# License
+Please cite our publication, if you use the provided code or data.
+```
+@misc{chen2025revisitingautomaticdatacuration,
+      title={Revisiting Automatic Data Curation for Vision Foundation Models in Digital Pathology}, 
+      author={Boqi Chen and Cédric Vincent-Cuaz and Lydia A. Schoenpflug and Manuel Madeira and Lisa Fournier and Vaishnavi Subramanian and Sonali Andani and Samuel Ruiperez-Campillo and Julia E. Vogt and Raphaëlle Luisier and Dorina Thanou and Viktor H. Koelzer and Pascal Frossard and Gabriele Campanella and Gunnar Rätsch},
+      year={2025},
+      eprint={2503.18709},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2503.18709}, 
+}
+```
 
 # Citations
 We build our work on the following public repositories:
