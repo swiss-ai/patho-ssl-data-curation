@@ -9,8 +9,7 @@ We provide code and data for:
 	* Tile extraction: The slides can be downloaded from the TCGA and GTEx websites. The slide ids and tiles (x,y) coordinates are specified in `clustering_results/clustering_{t1,t2}.csv`, tile coordinates are specified at the highest available pyramid level of the slide, the tiles are of size 224px X 224px at 20x magnification (=112um X 112um).
 	* Feature embedding: Generate the feature embedding using the UNI model on the extracted tiles.
 Combine all the embeddings into a large numpy file. With it available, you can run the data curation by following the instructions from the Meta repository for k-means clustering and sampling from the tree.
-* **Clustering results**: Our clustering results are available as csvs files at our [HuggingFace Repo](https://huggingface.co/datasets/swiss-ai/patho-ssl-data-curation/tree/main). They contain the slide_id (WSI the tile originates from), (x,y)-coordinate of the tile at level 0 (highest pyramid level of the WSI) and cluster labels for each level (denoted as columns "level_1"..."level_4"). Then slides can be downloaded from the [TCGA](https://portal.gdc.cancer.gov/) and [GTEx](https://www.gtexportal.org/home/histologyPage) websites, for tile extraction from the WSIs we recommend [openslide](https://openslide.org/api/python/).
-* Structure of `clustering_results/clustering_{t1,t2}.csv`:
+* **Clustering results**: Our clustering results are available as csvs files at our [HuggingFace Repo](https://huggingface.co/datasets/swiss-ai/patho-ssl-data-curation/tree/main). Structure of `clustering_results/clustering_{t1,t2}.csv`:
 
   	| slide\_id                                         | tile\_x | tile\_y | level\_1 | level\_2 | level\_3 | level\_4 |
 	| ------------------------------------------------- | ------- | ------- | -------- | -------- | -------- | -------- |
