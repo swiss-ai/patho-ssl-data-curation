@@ -66,7 +66,7 @@ if __name__ == "__main__":
     batch_size = 16
     tile_um = 112  # 112 microns, 224px at 0.5um/pixel
     out_px = 224  # 224px
-    uni_model_weights = "/capstor/scratch/cscs/lschoenp/models/uni/pytorch_model.bin"
+    uni_model_weights = None # can add path to downloaded weights
     ################################################################
 
     # Load UNI model
