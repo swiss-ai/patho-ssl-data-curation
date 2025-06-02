@@ -6,6 +6,14 @@ app = marimo.App(layout_file="layouts/visualization_tool.grid.json")
 
 @app.cell
 def _():
+    ### Set paths ###########################
+    tar_dir = "./visualization_tool"
+    csv_path = './visualization_tool/metadata.csv'
+    return csv_path, tar_dir
+
+
+@app.cell
+def _():
     import matplotlib.pyplot as plt
     import numpy as np
     import marimo as mo
@@ -23,16 +31,11 @@ def _():
     random.seed(42)
     random.shuffle(distinct_colors_34)
     random.shuffle(distinct_colors_100)
-
-    ### Set paths ###########################
-    tar_dir = "./visualization_tool"
-    csv_path = './visualization_tool/metadata.csv'
     return (
         CORE_COLS,
         Image,
         ProcessPoolExecutor,
         alt,
-        csv_path,
         distinct_colors_100,
         distinct_colors_34,
         mo,
@@ -43,7 +46,6 @@ def _():
         plt,
         random,
         sns,
-        tar_dir,
         tarfile,
     )
 
