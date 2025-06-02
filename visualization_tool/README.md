@@ -11,8 +11,8 @@ We provide the UMAP coordinates for N=2M curated tiles, and further provide the 
 * sns
 
 ## Prerequisite for tile visualization
-To visualize the tiles, make sure you have downloaded the tiles as tar files from our [hugging face repository](https://huggingface.co/datasets/swiss-ai/patho-ssl-data-curation/tree/main/visualization_tool), as well as the metadata for the 500k tiles from [metadata.csv](https://huggingface.co/datasets/swiss-ai/patho-ssl-data-curation/blob/main/visualization_tool/metadata.csv). The scripts expect the tiles and tar files to be located at `./visualization_tool`. The paths can also be adjusted within the first cell of the script:
-```
+To visualize the tiles, make sure you have downloaded the tiles as tar files (`tiles_0000.tar`-`tiles_0009.tar`) from our [hugging face repository](https://huggingface.co/datasets/swiss-ai/patho-ssl-data-curation/tree/main/visualization_tool), as well as the metadata for the 500k tiles from [metadata.csv](https://huggingface.co/datasets/swiss-ai/patho-ssl-data-curation/blob/main/visualization_tool/metadata.csv). The script [visualization_tool.py](visualization_tool.py) expects the tiles and tar files to be located at ``./visualization_tool`. The paths can also be adjusted within the first cell of the script:
+```python
 @app.cell
 def _():
     ### Set paths ###########################
